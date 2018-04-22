@@ -1,0 +1,32 @@
+html, body {margin: 0; height: 100%; padding: 0 }
+.header {
+	height: 10px;
+	width:	100px;
+	border: none;
+	background: rgb(240,200,140);
+	background: linear-gradient(0deg, rgba(240,200,140,1) 0%, rgba(136,204,255,1) 100%);
+	font-size: 20px;
+	color: black;
+	word-spacing: 30px
+	opacity: 0.5;
+	float: right;
+	font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+
+}
+
+body{
+background: rgb(136,204,255);
+background: linear-gradient(0deg, rgba(136,204,255,1) 0%, rgba(240,200,140,1) 41%);
+}
+
+.head2 {
+background: rgb(240,200,140);
+background: linear-gradient(0deg, rgba(240,200,140,1) 44%, rgba(136,204,255,1) 100%);
+}
+
+#map {
+	width:1920px;
+	height:700px;
+	background-color: #F0C88C;
+}
+

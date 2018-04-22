@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chewy Tea</title>
+
+
+		<meta name="google-signin-client_id" content="9252163449-1ti1nfouv6t5ut5tm89mi1dnul3k1stj.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+		<link rel="stylesheet" href="style.css">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="script.js"> </script>
+
+		<script> 
+			$(document).ready(function(){
+			    $("#bobas").mouseover(function(){
+			        $("#map").slideToggle("slow");
+			    });
+			});
+			</script>
+		<script>
+			function init() {
+			  gapi.load('auth2', function() { // Ready. });
+			}
+		}
+		</script>
+
+		<style> 
+			.g-signin2{
+				margin-left: 900px;
+				margin-top: 30px;
+				align-self: center;
+				display: block;
+				position: relative;
+			}
+
+			.frontpic {
+				display:block;
+				margin-left: auto;
+				margin-right: auto;
+				width: 25%;
+				height: 25%;
+				top:25px;
+				position:relative;
+			}
+
+			.titlehead {
+				font-family: "Century Gothic";
+				margin-top: 50px;
+			}
+
+			.signOutButton {
+				margin-left: 920px;
+				margin-top: 25px;
+				align-self: center;
+				display: block;
+				position: relative;
+				background-color:  #88CCFF;
+			}
+
+			.postLogin {
+				display: none;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+
+
+	<script>
+		var map;
+		var infoWindow;
+		var service;
+
+		function initMap() {
+
+
+
+			var mapCanvas = document.getElementById("map");
+			var myCenter=new google.maps.LatLng(33.9737,-117.3281);
+			var mapOptions = {center: myCenter, zoom: 15};
+			map = new google.maps.Map(mapCanvas, mapOptions);
+
+
+			infoWindow = new google.maps.InfoWindow();
+			service = new google.maps.places.PlacesService(map);
+
+			var loc = new google.maps.LatLng(33.9737,-117.3281);
+
+			var request = {
+			  	location: loc,
+			  	radius: '10000',
+				query: 'boba'
+		  };
+
+		  service.textSearch(request, callback);
+		}
+
+
+		function callback(results, status, pagination) {
+		  if (status !== google.maps.places.PlacesServiceStatus.OK) {
+		    console.error(status);
+		    return;
+		  }
+		 for (var i = 0; i < results.length; i++) {
+		      var place = results[i];
+		      createMarker(place);
+
+		      if ((i+1) >= results.length && pagination.gasNetPage ) {
+		      	pagination.nextPage();
+		      	i = -1;
+		      }
+		    }
+		}
+
+		function createMarker(place) {
+		  var marker = new google.maps.Marker({
+		    map: map,
+		    position: place.geometry.location,
+		    // icon: {
+		    //   url: 'https://developers.google.com/maps/documentation/javascript/images/circle.png',
+		    //   anchor: new google.maps.Point(10, 10),
+		    //   scaledSize: new google.maps.Size(10, 17)
+		    // }
+		  });
+
+
+		  google.maps.event.addListener(marker, 'click', function() {
+		    var request = {placeId: place.place_id};
+
+		    service.getDetails(request, function(result, status) {
+		      if (status !== google.maps.places.PlacesServiceStatus.OK) {
+		        console.error(status);
+		        return;
+		      }
+		      infoWindow.setContent(result.name);
+		      infoWindow.open(map, marker);
+		    });
+		  });
+		}
+
+	</script>
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW9lqVY-a2-oGmhgSzrmXSRoRTlue9-ok&libraries=places&callback=initMap"
+    async defer></script>
+
+
+
+		<div class="head2" >
+			<img id="bobas" class="frontpic" src="test.png" alt="" float="center">
+						<h1 class="titlehead" align="center">Chewy Tea</h1>
+		
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<div class="postLogin"> 
+<button class="signOutButton" onclick="signOut()">Sign Out</button>
+<br> <br>
+<div id="map" align="center"></div>
+
+
+<!-- <div class="data"> -->
+
+	</body>
+</div>
+
+</html>
